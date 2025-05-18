@@ -1,0 +1,40 @@
+services:
+  ollama:
+    container_name: ollama
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    entrypoint: /bin/sh
+    command: -c "ollama serve & sleep 2 && ollama pull llama3 && tail -f /dev/null"
+
+  chromadb:
+    container_name: chromadb
+    image: chromadb/chroma:latest
+    environment:
+      IS_PERSISTENT: "TRUE"
+      CHROMA_SERVER_AUTHN_CREDENTIALS: fZ8v2nLg93sdxP1qkB7wma49e
+      CHROMA_SERVER_AUTHN_PROVIDER: chromadb.auth.token_authn.TokenAuthenticationServerProvider
+    ports:
+      - "5454:8000"
+    volumes:
+      - chromadb:/chroma/chroma/
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ollama
+      POSTGRES_PASSWORD: ollama
+      POSTGRES_DB: ollama
+    ports:
+      - "5433:5432"
+    volumes:
+      - ollama-data:/var/lib/postgresql/data
+      - ./docker/scripts/postgres:/docker-entrypoint-initdb.d/
+
+volumes:
+  ollama:
+  chromadb:
+  ollama-data:
