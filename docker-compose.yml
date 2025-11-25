@@ -24,6 +24,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres:15
+    restart: always
     environment:
       POSTGRES_USER: ollama
       POSTGRES_PASSWORD: ollama

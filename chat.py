@@ -22,7 +22,6 @@ def generate_prompt(message):
 
 def openai_answer(message):
     prompt = generate_prompt(message)
-    print(prompt)
     response = openai_client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -42,7 +41,6 @@ def openai_answer(message):
 
 def llama_answer(message):
     prompt = generate_prompt(message)
-    print(prompt)
     response = llama_client.chat(
         model='llama3',
         messages=[
