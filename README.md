@@ -1,3 +1,16 @@
-Install dependencies: pip install -r requirements.txt
+# Get start
 
-Run: streamlit run main.py
+## Install dependencies:
+````shell
+pip install -r requirements.txt
+````
+
+## Docker
+````shell
+docker compose up
+````
+
+## Run: 
+````shell
+streamlit run main.py
+````
